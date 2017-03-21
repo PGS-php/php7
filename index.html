@@ -1,0 +1,242 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h2>PHP7</h2>
+					<p>wybrane nowości</p>
+					<p>możliwe problemy po migracji z&nbsp;5.6</p>
+					<p style="text-align:right;"><small><em>Dawid Grochowski<br>Reszów, 2017-03</em></small></p>
+				</section>
+				<section>
+					<h2>PHP 5.6 vs PHP 7.1</h2>
+					<img src="img/lets-get-ready-to-rumble.jpg" />
+				</section>
+				<section>
+					<p>tu wykresy</p>
+				</section>
+				<section>
+					<h2>New features</h2>
+				</section>
+				<section  data-markdown>
+					<script type="text/template">
+						### Spaceship operator (7.0)
+						```
+						echo 1 <=> 2; // -1
+						echo 1 <=> 1; // 0
+						echo 2 <=> 1; // 1
+						```
+					</script>
+				</section>
+				<section  data-markdown>
+					<script type="text/template">
+						### Anonymous classes (7.0)
+						```
+						$newClass = new class {
+							function showMessage($message) {
+								echo $message;
+							}
+						}
+
+						$newClass->showMessage('test');
+						// test
+						```
+					</script>
+				</section>
+				<section  data-markdown>
+					<script type="text/template">
+						### Group use declarations (7.0)
+						```
+						// Pre PHP 7 code
+						use some\namespace\ClassA;
+						use some\namespace\ClassB;
+						use some\namespace\ClassC as C;
+						use some\namespace\ClassD;
+
+						// PHP 7+ code
+						use some\namespace\{ClassA, ClassB, ClassC as C, ClassD};
+						```
+					</script>
+				</section>
+				<section  data-markdown>
+					<script type="text/template">
+						### Type declarations (7.0)
+						```
+						public function doSth(
+							bool   $param1,
+							float  $param2,
+							int    $param3,
+							string $param4
+						) {
+							...
+						}
+						```
+					</script>
+				</section>
+				<section  data-markdown>
+					<script type="text/template">
+						### Return type declarations (7.0)
+						```
+						public function doSth(...): string
+						{
+							...
+						}
+						```
+					</script>
+				</section>
+				<section  data-markdown>
+					<script type="text/template">
+						### Nullable types (7.1)
+						```
+						public function doSth(...): ?string
+						{
+							...
+						}
+						```
+					</script>
+				</section>
+				<section  data-markdown>
+					<script type="text/template">
+						### Void functions (7.1)
+						```
+						public function doSth(...): void
+						{
+							...
+						}
+						```
+					</script>
+				</section>
+                <section  data-markdown>
+                    <script type="text/template">
+                        ### Symmetric array destructuring (7.1)
+                        ```
+                        $data = [
+                            [1, 'Tom'],
+                            [2, 'Fred'],
+                        ];
+
+                        // list() style
+                        list($id1, $name1) = $data[0];
+
+                        // [] style
+                        [$id1, $name1] = $data[0];
+                        ```
+                    </script>
+                </section>
+                <section  data-markdown>
+                    <script type="text/template">
+                        ### Class constant visibility (7.1)
+                        ```
+                        class ConstDemo
+                        {
+                            const A = 1;
+                            public const B = 2;
+                            protected const C = 3;
+                            private const D = 4;
+                        }
+                        ```
+                    </script>
+                </section>
+                <section  data-markdown>
+                    <script type="text/template">
+                        ### Multi catch exception handling (7.1)
+                        ```
+                        try {
+                            // some code
+                        } catch (FirstException | SecondException $e) {
+                            // handle first and second exceptions
+                        }
+                        ```
+                    </script>
+                </section>
+				<section>
+					<h2>możliwe problemy po&nbsp;migracji z&nbsp;PHP5.6</h2>
+				</section>
+				<section  data-markdown>
+					<script type="text/template">
+						W PHP domyślnie włączone jest automatyczne rzutowanie zmiennych. Jeśli będziemy korzystali z&nbsp;`int` oraz `float` przemiennie, może nastąpić utrata danych. Wyłączenie rzutowania:
+						```
+						declare(strict_types=1);
+						```
+					</script>
+				</section>
+                <section  data-markdown>
+                    <script type="text/template">
+                        Nowe typy, to:
+                        ```
+                        Int, Float, Bool, String, True, False, Null
+                        ```
+                        W aplikacji nie możemy posiadać klas, interfejsów i&nbsp;traitów zadeklarowanych pod tymi nazwami.
+                    </script>
+                </section>
+                <section  data-markdown>
+                    <script type="text/template">
+                        Dotdeb PHP7.0 -> PHP7.1
+
+                        Po 14 latach Dotdeb kończy z udostępnianiem nowych paczek PHP dla Debiana. Od wersji PHP7.1+ zalecane jest korzystanie z https://deb.sury.org/
+                    </script>
+                </section>
+                <section  data-markdown>
+                    <script type="text/template">
+                        Kompatybilność popularnych skryptów z&nbsp;PHP7:
+                        - Wordpress od 4.1
+                        - Joomla od 3.5
+                        - Magento od 2.0
+                        - Drupal od 8.0.0
+                        - Prestashop od 1.7
+                    </script>
+                </section>
+                <section  data-markdown>
+                    <script type="text/template">
+                        Źródła:
+                        - http://php.net/docs.php
+                        - http://ttomczyk.pl/475/po-prostu-php-7
+                        - https://www.kylos.pl/blog/php-7-juz-w-kylos/
+                        - https://www.dotdeb.org/2017/01/27/php-7-1-dotdeb/
+                        - https://www.garron.me/en/go2linux/how-benchmark-stress-your-apache-nginx-or-iis-server.html
+                    </script>
+                </section>
+			</div>
+		</div>
+        https://www.kylos.pl/blog/php-7-juz-w-kylos/
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
