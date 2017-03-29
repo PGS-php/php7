@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>PHP Benchmark</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/black.css">
@@ -35,7 +35,11 @@
 					<img src="img/lets-get-ready-to-rumble.jpg" />
 				</section>
 				<section>
-					<p>tu wykresy</p>
+					<h2>PHP 5.6 vs PHP 7.1</h2>
+					<img src="img/php_benchmark.jpg" />
+				</section>
+				<section>
+					<p><a href="https://github.com/dgrochowski/php_benchmark">github.com/dgrochowski/php_benchmark</a></p>
 				</section>
 				<section>
 					<h2>New features</h2>
@@ -234,8 +238,8 @@
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/notes/notes.js', async: true },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+				],
 			});
 		</script>
 	</body>
